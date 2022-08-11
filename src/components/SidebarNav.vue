@@ -1,13 +1,34 @@
 <template>
-    <div class="col-auto col-md-3 col-xl-2 px-sm-1 px-4 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Employee List</span>
-                </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <input type="text" placeholder="Search....">
-                </ul>
-                <hr>
-            </div>
+  <div class="col-3 bg-dark" id="sticky-sidebar">
+    <div class="sticky-top">
+      <div class="nav flex-column">
+        <h1 class="text-white fs-3">Employee List</h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Name</span
+          >
+          <input
+            placeholder="Search..."
+            type="text"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            v-on:input="searchEmployee"
+          />
         </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  name: "SidebarNav",
+  props:['employee'],
+  methods:{
+    searchEmployee(e){
+        console.log(e.target.value)
+    }
+  }
+};
+</script>

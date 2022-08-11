@@ -1,29 +1,40 @@
 <template>
   <div id="app">
     <div class="container-fluid">
-    <div class="row flex-nowrap">
-        <SidebarNav></SidebarNav>
-        <div class="col py-3">
-            <h3>Left Sidebar with Submenus</h3>
-            <p class="lead">
-                An example 2-level sidebar with collasible menu items. The menu functions like an "accordion" where only a single 
-                menu is be open at a time. While the sidebar itself is not toggle-able, it does responsively shrink in width on smaller screens.</p>
-            <ul class="list-unstyled">
-                <li><h5>Responsive</h5> shrinks in width, hides text labels and collapses to icons only on mobile</li>
-            </ul>
-        </div>
+      <div class="row">
+        <SidebarNav v-bind:employee="employee"></SidebarNav>
+        <ContentArea></ContentArea>
+      </div>
     </div>
-</div>
   </div>
 </template>
 
 <script>
 import SidebarNav from "./components/SidebarNav.vue";
-
+import ContentArea from "./components/ContentArea.vue";
 export default {
-    name: "App",
-    components: { SidebarNav }
-}
+  name: "App",
+  components: {
+    SidebarNav,
+    ContentArea,
+  },
+  data() {
+    return {
+      employee: [
+        {
+          id: 1,
+          name: "Md Amam Uddin Srabon",
+          address: "House : 30, Road : 05, Dhaka",
+        },
+        {
+          id: 2,
+          name: "Md Sohel Rana",
+          address: "Mohammad Pur, Dhaka",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
@@ -31,5 +42,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#sticky-sidebar {
+  height: 100vh;
+  padding: 10px;
 }
 </style>
