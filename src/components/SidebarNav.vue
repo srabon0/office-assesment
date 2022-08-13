@@ -25,21 +25,21 @@
               <th scope="col">Handle</th>
             </tr>
           </thead>
-          <tr :key="emp.id" v-for="emp in searchResultIn">
-              <th scope="row">{{ emp.id }}</th>
-              <td colspan="2">{{ emp.name }}</td>
+          <tr :key="emp.id" v-for="emp,index in searchResultIn">
+            <th scope="row">{{ index + 1 }}</th>
+            <td colspan="2">{{ emp.name }}</td>
 
-              <td>
-                <div>
-                  <input
-                    class="form-check-input mt-0"
-                    type="checkbox"
-                    value=""
-                    aria-label="Checkbox for following text input"
-                  />
-                </div>
-              </td>
-            </tr>
+            <td>
+              <div>
+                <input
+                  class="form-check-input mt-0"
+                  type="checkbox"
+                  value=""
+                  aria-label="Checkbox for following text input"
+                />
+              </div>
+            </td>
+          </tr>
         </table>
       </div>
     </div>
@@ -48,14 +48,13 @@
 
 <script>
 export default {
-    name: "SidebarNav",
-    props: ['employee',"searchResultIn"],
-    methods: {
-        searchEmployee(e) {
-          var keyword = e.target.value
-          this.$emit("searchEmployeeInList", keyword)
-        },
+  name: "SidebarNav",
+  props: ["employee", "searchResultIn"],
+  methods: {
+    searchEmployee(e) {
+      var keyword = e.target.value;
+      this.$emit("searchEmployeeInList", keyword);
     },
-
+  },
 };
 </script>
