@@ -1,27 +1,30 @@
 <template>
   <div class="border border-2 rounded">
-   <form class="m-2 p-3" action="">
-
-     <div class="row g-3">
-      <div class="col">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="First name"
-          aria-label="First name"
-        />
+    <form class="m-2 p-3" @submit.prevent="addNewEmployee">
+      <div class="row g-3">
+        <div class="col">
+          <input
+            v-model="name"
+            type="text"
+            class="form-control"
+            placeholder="Employee Name"
+            aria-label="Employee Name"
+            required
+          />
+        </div>
+        <div class="col">
+          <input
+            v-model="address"
+            type="text"
+            class="form-control"
+            placeholder="Address"
+            aria-label="Address"
+            required
+          />
+        </div>
       </div>
-      <div class="col">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Last name"
-          aria-label="Last name"
-        />
-      </div>
-    </div>
-    <input type="submit" value="Add New" class="btn btn-primary my-3" /> 
-   </form>
+      <input type="submit" value="Add New" class="btn btn-primary my-3" />
+    </form>
   </div>
 </template>
 
@@ -30,12 +33,21 @@ export default {
   name: "OfficeAssesmentAddNewEmployee",
 
   data() {
-    return {};
+    return {
+      name: "",
+      address: "",
+    };
   },
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    addNewEmployee() {
+      var newEmp = {name:this.name,address:this.address}
+      this.$emit("addEmployee",newEmp)
+    
+    },
+  },
 };
 </script>
 

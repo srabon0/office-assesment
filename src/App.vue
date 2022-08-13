@@ -3,8 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <SidebarNav @searchEmployeeInList="onEmployeeSearch" v-bind:searchResultIn="searchResultIn" ></SidebarNav>
-        <ContentArea></ContentArea>
-        <!-- <div :key="emp.id" v-for="emp in searchResultIn" > {{ emp.name }} </div> -->
+        <ContentArea @addEmployee="addNewEmp"></ContentArea>
         
       </div>
     </div>
@@ -43,6 +42,12 @@ export default {
       this.searchResult = keyword;
       console.log(this.employee)
       
+    },
+    addNewEmp(emp){
+      emp.id=this.employee.length+1
+      this.employee.unshift(emp);
+      console.log("from App in ", emp);
+
     }
   },
   computed:{
