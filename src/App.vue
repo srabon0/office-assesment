@@ -2,8 +2,10 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row">
-        <SidebarNav v-bind:employee="employee"></SidebarNav>
+        <SidebarNav @searchEmployeeInList="onEmployeeSearch" v-bind:searchResultIn="searchResultIn" ></SidebarNav>
         <ContentArea></ContentArea>
+        <!-- <div :key="emp.id" v-for="emp in searchResultIn" > {{ emp.name }} </div> -->
+        
       </div>
     </div>
   </div>
@@ -32,8 +34,31 @@ export default {
           address: "Mohammad Pur, Dhaka",
         },
       ],
+      searchResult:"",
     };
   },
+  methods:{
+    onEmployeeSearch(keyword){
+      console.log("In app", keyword);
+      this.searchResult = keyword;
+      console.log(this.employee)
+      
+    }
+  },
+  computed:{
+    searchResultIn(){
+      if (this.searchResult) {
+        return this.employee.filter(item => {
+          return this.searchResult
+            .toLowerCase()
+            .split(" ")
+            .every(v => item.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.employee;
+      }
+    }
+  }
 };
 </script>
 
