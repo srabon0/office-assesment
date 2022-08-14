@@ -43,7 +43,7 @@ export default {
 
   methods: {
     addNewEmployee() {
-      var newEmp = { name: this.name, address: this.address };
+      var newEmp = { name: this.name, address: this.address, checked:false };
       this.$emit("addEmployee", newEmp);
       this.name="",
       this.address=""
