@@ -4,6 +4,7 @@
 ```
 npm install
 ```
+### dynamic values > :value="{name:'Jack', address:'Dhaka'}"
 
 ### Compiles and hot-reloads for development
 ```
