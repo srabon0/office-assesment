@@ -25,7 +25,7 @@
               <th scope="col">Handle</th>
             </tr>
           </thead>
-          <tr :key="emp.id" v-for="emp,index in searchResultIn">
+          <tr :key="emp.id" v-for="(emp,index) in searchResultIn">
             <th scope="row">{{ index + 1 }}</th>
             <td colspan="2">{{ emp.name }}</td>
 
@@ -35,7 +35,7 @@
                   class="form-check-input mt-0"
                   type="checkbox"
                   :value="emp.id"
-                  @change="check"
+                  @change="check(index)"
                   aria-label="Checkbox for following text input"
                 />
               </div>
@@ -61,12 +61,8 @@ export default {
       var keyword = e.target.value;
       this.$emit("searchEmployeeInList", keyword);
     },
-    check(e){
-      var selectedEmp = {
-        action:e.target.checked,
-        id:parseInt(e.target.value)
-      }
-      this.$emit("selectEmp",selectedEmp);
+    check(emp){
+      this.$emit("selectEmp",emp);
     }
   },
 };

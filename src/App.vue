@@ -7,7 +7,10 @@
           @selectEmp="onEmployeeSelect"
           v-bind:searchResultIn="searchResultIn"
         ></SidebarNav>
-        <ContentArea @addEmployee="addNewEmp" :selectedEmp="selectedEmp"></ContentArea>
+        <ContentArea
+          @addEmployee="addNewEmp"
+          :selectedEmp="selectedEmp"
+        ></ContentArea>
         <div>{{ selectedEmp.length }}</div>
       </div>
     </div>
@@ -30,14 +33,16 @@ export default {
           id: 1,
           name: "Md Amam Uddin Srabon",
           address: "House : 30, Road : 05, Dhaka",
+          checked: false
         },
         {
           id: 2,
           name: "Md Sohel Rana",
           address: "Mohammad Pur, Dhaka",
+          checked: false
         },
       ],
-      selectedEmp: [],
+      //selectedEmp: [],
       searchResult: "",
     };
   },
@@ -52,23 +57,14 @@ export default {
       this.employee.unshift(emp);
       console.log("from App in ", emp);
     },
-    onEmployeeSelect(emp) {
-      console.log("From emit app", emp);
-      if (emp.action) {
-        const selectedEm = this.employee.filter((e) => emp.id === e.id);
-        this.selectedEmp.unshift(selectedEm);
-      } else {
-        console.log("All array Remove from Selected");
-        if (this.selectedEmp.length === 1) {
-          this.selectedEmp.pop();
-        } else {
-          const selectedEm = this.employee.filter((e) => emp.id !== e.id);
-          this.selectedEmp = selectedEm;
-        }
-      }
+    onEmployeeSelect(index) {
+      this.employee[index].checked = !this.employee[index].checked
     },
   },
   computed: {
+    selectedEmp(){
+      return this.employee.filter((e) => e.checked)
+    },
     searchResultIn() {
       if (this.searchResult) {
         return this.employee.filter((item) => {
