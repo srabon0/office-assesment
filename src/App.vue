@@ -8,6 +8,7 @@
           v-bind:searchResultIn="searchResultIn"
         ></SidebarNav>
         <ContentArea
+        @deleteUser="onDeleteUser"
           @addEmployee="addNewEmp"
           :selectedEmp="selectedEmp"
         ></ContentArea>
@@ -60,6 +61,11 @@ export default {
     onEmployeeSelect(index) {
       this.employee[index].checked = !this.employee[index].checked
     },
+    onDeleteUser(user){
+      console.log("remove this ", user)
+      const deletedList = this.employee.filter(e=>e.id !==user.id);
+      this.employee= deletedList
+    }
   },
   computed: {
     selectedEmp(){

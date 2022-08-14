@@ -6,7 +6,7 @@
 
     <div class="container my-3">
       <h3>Selected Employee list</h3>
-      <SelectedEmployee :selectedEmp="selectedEmp"></SelectedEmployee>
+      <SelectedEmployee @deleteUser="onDeleteUser" :selectedEmp="selectedEmp"></SelectedEmployee>
     </div>
   </div>
 </template>
@@ -21,6 +21,9 @@ export default {
     onAddnewEmployee(emp) {
       this.$emit("addEmployee", emp);
     },
+    onDeleteUser(user){
+      this.$emit('deleteUser',user)
+    }
   },
 };
 </script>

@@ -4,12 +4,12 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Name</th>
+          <th scope="col">Name <span @click="sortByName" > Sort </span></th>
           <th scope="col">Address</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
-      <SelectedEmployeeRow :selectedEmp="selectedEmp"></SelectedEmployeeRow>
+      <SelectedEmployeeRow @deleteUser="onDeleteUser" :selectedEmp="selectedEmp"></SelectedEmployeeRow>
     </table>
     <div v-else > <h3 class="text-danger" > Sorry no Data </h3> </div>
   </div>
@@ -29,7 +29,14 @@ export default {
         }
     },
     mounted() { },
-    methods: {},
+    methods: {
+      sortByName: function(){
+        console.log("Sort by name");
+      },
+      onDeleteUser(user){
+        this.$emit('deleteUser', user);
+      }
+    },
     components: { SelectedEmployeeRow }
 };
 </script>
