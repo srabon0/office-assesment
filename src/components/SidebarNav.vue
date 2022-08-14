@@ -17,6 +17,7 @@
           />
         </div>
       </div>
+      <span class="text-white" :key="empl.id" v-for="empl in employee" > {{ empl.name }} </span>
     </div>
   </div>
 </template>
@@ -24,11 +25,20 @@
 <script>
 export default {
   name: "SidebarNav",
-  props:['employee'],
-  methods:{
-    searchEmployee(e){
-        console.log(e.target.value)
-    }
-  }
+  data() {
+    return {
+     
+    };
+  },
+
+  props: ["employee"],
+  methods: {
+    searchEmployee(e) {
+      console.log(e.target.value);
+      return this.employee.filter(empl => {
+            return empl.name.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+    },
+  },
 };
 </script>
