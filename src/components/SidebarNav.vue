@@ -25,7 +25,7 @@
               <th scope="col">Handle</th>
             </tr>
           </thead>
-          <tr :key="emp.id" v-for="(emp,index) in searchResultIn">
+          <tr :key="emp.id" v-for="(emp, index) in searchResultIn">
             <th scope="row">{{ index + 1 }}</th>
             <td colspan="2">{{ emp.name }}</td>
 
@@ -50,10 +50,10 @@
 <script>
 export default {
   name: "SidebarNav",
-  data(){
-    return{
-      selectedEmployee:{}
-    }
+  data() {
+    return {
+      selectedEmployee: {},
+    };
   },
   props: ["employee", "searchResultIn"],
   methods: {
@@ -61,9 +61,9 @@ export default {
       var keyword = e.target.value;
       this.$emit("searchEmployeeInList", keyword);
     },
-    check(emp){
-      this.$emit("selectEmp",emp);
-    }
+    check(emp) {
+      this.$emit("selectEmp", emp);
+    },
   },
 };
 </script>

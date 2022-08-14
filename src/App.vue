@@ -8,9 +8,11 @@
           v-bind:searchResultIn="searchResultIn"
         ></SidebarNav>
         <ContentArea
-        @deleteUser="onDeleteUser"
+          @editUser="onEditUser"
+          @deleteUser="onDeleteUser"
           @addEmployee="addNewEmp"
           :selectedEmp="selectedEmp"
+          :editRequest="editRequest"
         ></ContentArea>
         <div>{{ selectedEmp.length }}</div>
       </div>
@@ -34,17 +36,18 @@ export default {
           id: 1,
           name: "Md Amam Uddin Srabon",
           address: "House : 30, Road : 05, Dhaka",
-          checked: false
+          checked: false,
         },
         {
           id: 2,
           name: "Md Sohel Rana",
           address: "Mohammad Pur, Dhaka",
-          checked: false
+          checked: false,
         },
       ],
       //selectedEmp: [],
       searchResult: "",
+      editRequest:null
     };
   },
   methods: {
@@ -59,17 +62,25 @@ export default {
       console.log("from App in ", emp);
     },
     onEmployeeSelect(index) {
-      this.employee[index].checked = !this.employee[index].checked
+      this.employee[index].checked = !this.employee[index].checked;
     },
-    onDeleteUser(user){
-      console.log("remove this ", user)
-      const deletedList = this.employee.filter(e=>e.id !==user.id);
-      this.employee= deletedList
-    }
+    onDeleteUser(user) {
+      console.log("remove this ", user);
+      const deletedList = this.employee.filter((e) => e.id !== user.id);
+      this.employee = deletedList;
+    },
+    onEditUser(user) {
+      console.log(user)
+      user.editreq = true
+      this.editRequest = user
+    },
   },
   computed: {
-    selectedEmp(){
-      return this.employee.filter((e) => e.checked)
+    selectedEmp() {
+      return this.employee.filter((e) => e.checked);
+    },
+    sendEditReq(){
+      return this.editRequest
     },
     searchResultIn() {
       if (this.searchResult) {

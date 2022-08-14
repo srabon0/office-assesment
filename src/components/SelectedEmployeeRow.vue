@@ -6,7 +6,9 @@
       <td>{{ emp.address }}</td>
       <td>
         <div class="d-flex">
-          <button class="btn btn-warning mx-1">Edit</button>
+          <button class="btn btn-warning mx-1" @click="editUser(emp)">
+            Edit
+          </button>
           <button
             type="button"
             class="btn btn-danger"
@@ -16,31 +18,32 @@
           >
             Delete
           </button>
-          
         </div>
       </td>
     </tr>
-    <DeleteModal @deleteUser="onDeleteUser" :emp="employee" ></DeleteModal>
+    <DeleteModal @deleteUser="onDeleteUser" :emp="employee"></DeleteModal>
   </tbody>
-  
 </template>
 
 <script>
 import DeleteModal from "./DeleteModal.vue";
 export default {
-    name: "OfficeAssesmentSelectedEmployeeRow",
-    props: ["selectedEmp"],
-    data() {
-        return {
-          employee: {}
-        };
+  name: "OfficeAssesmentSelectedEmployeeRow",
+  props: ["selectedEmp"],
+  data() {
+    return {
+      employee: {},
+    };
+  },
+  methods: {
+    onDeleteUser(user) {
+      this.$emit("deleteUser", user);
     },
-    methods: {
-      onDeleteUser(user){
-        this.$emit("deleteUser",user)
-      }
+    editUser(emp) {
+      this.$emit("editUser", emp);
     },
-    components: { DeleteModal }
+  },
+  components: { DeleteModal },
 };
 </script>
 

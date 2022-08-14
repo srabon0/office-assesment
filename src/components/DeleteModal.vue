@@ -33,7 +33,12 @@
           >
             Close
           </button>
-          <button type="button" @click="deleteUser(emp)"  data-bs-dismiss="modal" class="btn btn-danger">
+          <button
+            type="button"
+            @click="deleteUser(emp)"
+            data-bs-dismiss="modal"
+            class="btn btn-danger"
+          >
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,9 +76,9 @@ export default {
   mounted() {},
 
   methods: {
-    deleteUser(user){
-        this.$emit("deleteUser",user)
-    }
+    deleteUser(user) {
+      this.$emit("deleteUser", user);
+    },
   },
 };
 </script>
