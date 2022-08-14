@@ -34,7 +34,8 @@
                 <input
                   class="form-check-input mt-0"
                   type="checkbox"
-                  value=""
+                  :value="emp.id"
+                  @change="check"
                   aria-label="Checkbox for following text input"
                 />
               </div>
@@ -49,12 +50,24 @@
 <script>
 export default {
   name: "SidebarNav",
+  data(){
+    return{
+      selectedEmployee:{}
+    }
+  },
   props: ["employee", "searchResultIn"],
   methods: {
     searchEmployee(e) {
       var keyword = e.target.value;
       this.$emit("searchEmployeeInList", keyword);
     },
+    check(e){
+      var selectedEmp = {
+        action:e.target.checked,
+        id:parseInt(e.target.value)
+      }
+      this.$emit("selectEmp",selectedEmp);
+    }
   },
 };
 </script>

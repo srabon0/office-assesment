@@ -2,9 +2,13 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row">
-        <SidebarNav @searchEmployeeInList="onEmployeeSearch" v-bind:searchResultIn="searchResultIn" ></SidebarNav>
-        <ContentArea @addEmployee="addNewEmp"></ContentArea>
-        
+        <SidebarNav
+          @searchEmployeeInList="onEmployeeSearch"
+          @selectEmp="onEmployeeSelect"
+          v-bind:searchResultIn="searchResultIn"
+        ></SidebarNav>
+        <ContentArea @addEmployee="addNewEmp" :selectedEmp="selectedEmp"></ContentArea>
+        <div>{{ selectedEmp.length }}</div>
       </div>
     </div>
   </div>
@@ -33,37 +37,51 @@ export default {
           address: "Mohammad Pur, Dhaka",
         },
       ],
-      searchResult:"",
+      selectedEmp: [],
+      searchResult: "",
     };
   },
-  methods:{
-    onEmployeeSearch(keyword){
+  methods: {
+    onEmployeeSearch(keyword) {
       console.log("In app", keyword);
       this.searchResult = keyword;
-      console.log(this.employee)
-      
+      console.log(this.employee);
     },
-    addNewEmp(emp){
-      emp.id=this.employee.length+1
+    addNewEmp(emp) {
+      emp.id = this.employee.length + 1;
       this.employee.unshift(emp);
       console.log("from App in ", emp);
-
-    }
+    },
+    onEmployeeSelect(emp) {
+      console.log("From emit app", emp);
+      if (emp.action) {
+        const selectedEm = this.employee.filter((e) => emp.id === e.id);
+        this.selectedEmp.unshift(selectedEm);
+      } else {
+        console.log("All array Remove from Selected");
+        if (this.selectedEmp.length === 1) {
+          this.selectedEmp.pop();
+        } else {
+          const selectedEm = this.employee.filter((e) => emp.id !== e.id);
+          this.selectedEmp = selectedEm;
+        }
+      }
+    },
   },
-  computed:{
-    searchResultIn(){
+  computed: {
+    searchResultIn() {
       if (this.searchResult) {
-        return this.employee.filter(item => {
+        return this.employee.filter((item) => {
           return this.searchResult
             .toLowerCase()
             .split(" ")
-            .every(v => item.name.toLowerCase().includes(v));
+            .every((v) => item.name.toLowerCase().includes(v));
         });
       } else {
         return this.employee;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
