@@ -8,6 +8,7 @@
           v-bind:searchResultIn="searchResultIn"
         ></SidebarNav>
         <ContentArea
+        @updateUser="onUpdateUser"
         @createNew="onCreateNew"
           @editUser="onEditUser"
           @deleteUser="onDeleteUser"
@@ -77,6 +78,17 @@ export default {
     onCreateNew(){
       return this.editRequest = null;
 
+    },
+    onUpdateUser(user){
+      console.log(user);
+      const updateEmployees = this.employee.map(emp=>{
+        if(emp.id===user.userId){
+          return {...emp, name:user.newName,address:user.newAdd,editreq:false } ;
+        }
+        return emp;
+      });
+      this.employee = updateEmployees
+      this.editRequest=null
     }
 
   },

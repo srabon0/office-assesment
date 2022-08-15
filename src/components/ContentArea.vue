@@ -1,6 +1,6 @@
 <template>
   <div class="col" id="main">
-    <AddNewEmployee @createNew="onCreateNew" :editRequest="editRequest"  @addEmployee="onAddnewEmployee"></AddNewEmployee>
+    <AddNewEmployee @updateUser="onUpdateUser" @createNew="onCreateNew" :editRequest="editRequest"  @addEmployee="onAddnewEmployee"></AddNewEmployee>
 
     <div class="container my-3">
       <h3>Selected Employee list</h3>
@@ -31,6 +31,10 @@ export default {
     },
     onCreateNew(){
       this.$emit("createNew")
+    },
+    onUpdateUser(user){
+      this.$emit("updateUser",user)
+
     }
   },
 };
