@@ -6,6 +6,8 @@
       <h3>Selected Employee list</h3>
       <SelectedEmployee
         @editUser="onEditUser"
+        @sortByName="onSortByName"
+        @sortByAdd="onSortByAdd"
         @deleteUser="onDeleteUser"
         :selectedEmp="selectedEmp"
       ></SelectedEmployee>
@@ -35,6 +37,12 @@ export default {
     onUpdateUser(user){
       this.$emit("updateUser",user)
 
+    },
+    onSortByName(){
+      this.$emit("sortByName");
+    },
+    onSortByAdd(){
+      this.$emit("sortByAdd")
     }
   },
 };

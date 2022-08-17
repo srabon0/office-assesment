@@ -8,6 +8,8 @@
           v-bind:searchResultIn="searchResultIn"
         ></SidebarNav>
         <ContentArea
+        @sortByName="onSortByName"
+        @sortByAdd="onSortByAdd"
         @updateUser="onUpdateUser"
         @createNew="onCreateNew"
           @editUser="onEditUser"
@@ -16,7 +18,6 @@
           :selectedEmp="selectedEmp"
           :editRequest="editRequest"
         ></ContentArea>
-        <div>{{ selectedEmp.length }}</div>
       </div>
     </div>
   </div>
@@ -46,10 +47,18 @@ export default {
           address: "Mohammad Pur, Dhaka",
           checked: false,
         },
+        {
+          id: 3,
+          name: "Ikbal Nayeem",
+          address: "Uttara, Dhaka",
+          checked: false,
+        },
       ],
       //selectedEmp: [],
       searchResult: "",
-      editRequest:null
+      editRequest:null,
+      sortByName:false,
+      sortByAdd:false,
     };
   },
   methods: {
@@ -89,13 +98,37 @@ export default {
       });
       this.employee = updateEmployees
       this.editRequest=null
-    }
+    },
+    onSortByName(){
+      console.log("sort by name form the app")
+      this.sortByAdd = false
+      this.sortByName = !this.sortByName 
+
+    },
+    onSortByAdd(){
+      console.log("sort by Address form the app")
+      this.sortByName = false
+      this.sortByAdd = !this.sortByAdd 
+    },
 
   },
   computed: {
     selectedEmp() {
-      return this.employee.filter((e) => e.checked);
+      if(this.sortByName){
+         const temp = this.employee.filter((e) => e.checked);
+         return temp.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+      }
+      if(this.sortByAdd){
+        const temp = this.employee.filter((e) => e.checked);
+         return temp.sort((a, b) => a.address.toLowerCase().localeCompare(b.address.toLowerCase()))
+      }
+      else{
+        return this.employee.filter((e) => e.checked);
+        
+      }
+     
     },
+
     sendEditReq(){
       return this.editRequest
     },
