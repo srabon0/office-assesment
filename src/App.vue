@@ -123,7 +123,7 @@ export default {
          return temp.sort((a, b) => a.address.toLowerCase().localeCompare(b.address.toLowerCase()))
       }
       else{
-        return this.employee.filter((e) => e.checked);
+        return this.employee.filter((e) => e.checked).reverse();
         
       }
      

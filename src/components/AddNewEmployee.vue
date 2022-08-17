@@ -14,7 +14,7 @@
     <div class="border border-2 rounded">
       <form class="m-2 p-3" v-if="editRequest?.editreq" @submit.prevent="updateEmployee">
         <div class="row g-3">
-          <span> {{ editRequest?.id }} </span>
+          <span class="text-danger"> Employee Id :  {{ editRequest?.id }} </span>
           <div class="col">
             <input
               type="text"
