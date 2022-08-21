@@ -5,11 +5,14 @@
     <div class="container my-3">
       <h3>Selected Employee list</h3>
       <SelectedEmployee
+      
+      @setPage="onSetPage"
         @editUser="onEditUser"
         @sortByName="onSortByName"
         @sortByAdd="onSortByAdd"
         @deleteUser="onDeleteUser"
         :selectedEmp="selectedEmp"
+        :pageCount="pageCount"
       ></SelectedEmployee>
     </div>
   </div>
@@ -20,7 +23,7 @@ import AddNewEmployee from "./AddNewEmployee.vue";
 import SelectedEmployee from "./SelectedEmployee.vue";
 export default {
   components: { AddNewEmployee, SelectedEmployee },
-  props: ["selectedEmp","editRequest"],
+  props: ["selectedEmp","editRequest","pageCount"],
   methods: {
     onAddnewEmployee(emp) {
       this.$emit("addEmployee", emp);
@@ -43,7 +46,10 @@ export default {
     },
     onSortByAdd(){
       this.$emit("sortByAdd")
-    }
+    },
+    onSetPage(pageNumber){
+      this.$emit("setPage" , pageNumber)
+    },
   },
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <table v-if="selectedEmp.length" class="table">
+    <div v-if="selectedEmp.length" >
+      <table class="table">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -52,24 +53,24 @@
         :selectedEmp="selectedEmp"
       ></SelectedEmployeeRow>
     </table>
+    <Pagination @setPage="onSetPage" :pageCount="pageCount" ></Pagination>
+    </div>
     <div v-else><h3 class="text-danger">Sorry no Data</h3></div>
   </div>
 </template>
 
 <script>
 import SelectedEmployeeRow from "./SelectedEmployeeRow.vue";
+import Pagination from "./Pagination.vue";
 export default {
   name: "OfficeAssesmentSelectedEmployee",
-  props: ["selectedEmp"],
+  props: ["selectedEmp","pageCount"],
   data() {
     return {
     
     };
   },
   computed: {
-    totalEmployee() {
-      return this.selectedEmp?.length;
-    },
   },
   mounted() {},
   methods: {
@@ -85,8 +86,11 @@ export default {
     onEditUser(user) {
       this.$emit("editUser", user);
     },
+    onSetPage(pageNumber){
+      this.$emit("setPage",pageNumber)
+    }
   },
-  components: { SelectedEmployeeRow },
+  components: { SelectedEmployeeRow, Pagination },
 };
 </script>
 

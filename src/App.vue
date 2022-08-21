@@ -8,15 +8,17 @@
           v-bind:searchResultIn="searchResultIn"
         ></SidebarNav>
         <ContentArea
-        @sortByName="onSortByName"
-        @sortByAdd="onSortByAdd"
-        @updateUser="onUpdateUser"
-        @createNew="onCreateNew"
+          @setPage="onSetPage"
+          @sortByName="onSortByName"
+          @sortByAdd="onSortByAdd"
+          @updateUser="onUpdateUser"
+          @createNew="onCreateNew"
           @editUser="onEditUser"
           @deleteUser="onDeleteUser"
           @addEmployee="addNewEmp"
           :selectedEmp="selectedEmp"
           :editRequest="editRequest"
+          :pageCount="pageCount"
         ></ContentArea>
       </div>
     </div>
@@ -53,15 +55,69 @@ export default {
           address: "Uttara, Dhaka",
           checked: false,
         },
+        {
+          id: 4,
+          name: "Fokhrul Shipon",
+          address: "Uttara, Dhaka",
+          checked: false,
+        },
+        {
+          id: 5,
+          name: "Tanvir Ahmed",
+          address: "Uttara, Dhaka",
+          checked: false,
+        },
+        {
+          id: 6,
+          name: "Sehjad Saif",
+          address: "Badda, Dhaka",
+          checked: false,
+        },
+        {
+          id: 7,
+          name: "Ayesha Haque",
+          address: "Dhanmondi, Dhaka",
+          checked: false,
+        },
+        {
+          id: 8,
+          name: "Mofazzal Hossain",
+          address: "Jatrabari, Dhaka",
+          checked: false,
+        },
+        {
+          id: 9,
+          name: "Suraiya Islam Puspo",
+          address: "Jatrabari, Dhaka",
+          checked: false,
+        },
+        {
+          id: 10,
+          name: "Sayedd Anwar Jayed",
+          address: "Banasree, Dhaka",
+          checked: false,
+        },
+        {
+          id: 11,
+          name: "Mahmudul Hasan",
+          address: "MohammadPur , Dhaka",
+          checked: false,
+        },
       ],
       //selectedEmp: [],
       searchResult: "",
-      editRequest:null,
-      sortByName:false,
-      sortByAdd:false,
+      editRequest: null,
+      sortByName: false,
+      sortByAdd: false,
+      currentPage: 0,
+      maxPerPage: 5,
     };
   },
   methods: {
+    onSetPage(pageNumber) {
+      console.log("From App", pageNumber);
+      this.currentPage = pageNumber;
+    },
     onEmployeeSearch(keyword) {
       console.log("In app", keyword);
       this.searchResult = keyword;
@@ -81,56 +137,69 @@ export default {
       this.employee = deletedList;
     },
     onEditUser(user) {
-      user.editreq = true
-      this.editRequest = user
+      user.editreq = true;
+      this.editRequest = user;
     },
-    onCreateNew(){
-      return this.editRequest = null;
-
+    onCreateNew() {
+      return (this.editRequest = null);
     },
-    onUpdateUser(user){
+    onUpdateUser(user) {
       console.log(user);
-      const updateEmployees = this.employee.map(emp=>{
-        if(emp.id===user.userId){
-          return {...emp, name:user.newName,address:user.newAdd,editreq:false } ;
+      const updateEmployees = this.employee.map((emp) => {
+        if (emp.id === user.userId) {
+          return {
+            ...emp,
+            name: user.newName,
+            address: user.newAdd,
+            editreq: false,
+          };
         }
         return emp;
       });
-      this.employee = updateEmployees
-      this.editRequest=null
+      this.employee = updateEmployees;
+      this.editRequest = null;
     },
-    onSortByName(){
-      console.log("sort by name form the app")
-      this.sortByAdd = false
-      this.sortByName = !this.sortByName 
-
+    onSortByName() {
+      console.log("sort by name form the app");
+      this.sortByAdd = false;
+      this.sortByName = !this.sortByName;
     },
-    onSortByAdd(){
-      console.log("sort by Address form the app")
-      this.sortByName = false
-      this.sortByAdd = !this.sortByAdd 
+    onSortByAdd() {
+      console.log("sort by Address form the app");
+      this.sortByName = false;
+      this.sortByAdd = !this.sortByAdd;
     },
-
   },
   computed: {
     selectedEmp() {
-      if(this.sortByName){
-         const temp = this.employee.filter((e) => e.checked);
-         return temp.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
-      }
-      if(this.sortByAdd){
+      if (this.sortByName) {
         const temp = this.employee.filter((e) => e.checked);
-         return temp.sort((a, b) => a.address.toLowerCase().localeCompare(b.address.toLowerCase()))
+        return temp.sort((a, b) =>
+          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        );
       }
-      else{
-        return this.employee.filter((e) => e.checked).reverse();
-        
+      if (this.sortByAdd) {
+        const temp = this.employee.filter((e) => e.checked);
+        return temp.sort((a, b) =>
+          a.address.toLowerCase().localeCompare(b.address.toLowerCase())
+        );
+      } else {
+        const temp =  this.employee.filter((e) => e.checked).reverse();
+        return temp
       }
-     
     },
+    // paginate: () => {
+    //   if (this.currentPage >= this.pageCount) {
+    //     this.currentPage = Math.max(0, this.pageCount - 1);
+    //   }
+    //   var index = this.currentPage * this.maxPerPage;
+    //   console.log(index + " index");
+    //   console.log(this.selectedEmp.slice(index, index + this.maxPerPage));
+    //   return this.selectedEmp.slice(index, index + this.maxPerPage);
+    // },
 
-    sendEditReq(){
-      return this.editRequest
+    sendEditReq() {
+      return this.editRequest;
     },
     searchResultIn() {
       if (this.searchResult) {
@@ -143,6 +212,9 @@ export default {
       } else {
         return this.employee;
       }
+    },
+    pageCount() {
+      return Math.ceil(this.selectedEmp?.length / this.maxPerPage);
     },
   },
 };
