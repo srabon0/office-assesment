@@ -169,23 +169,31 @@ export default {
       this.sortByName = false;
       this.sortByAdd = !this.sortByAdd;
     },
+    paginate(paginatedArray){
+      const index = this.currentPage*this.maxPerPage
+      console.log(index);
+      return (paginatedArray.slice(index, index + this.maxPerPage))
+
+    }
   },
   computed: {
     selectedEmp() {
       if (this.sortByName) {
         const temp = this.employee.filter((e) => e.checked);
-        return temp.sort((a, b) =>
+        const sortedTemp =temp.sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         );
+        return this.paginate(sortedTemp)
       }
       if (this.sortByAdd) {
         const temp = this.employee.filter((e) => e.checked);
-        return temp.sort((a, b) =>
+        const sortedTemp = temp.sort((a, b) =>
           a.address.toLowerCase().localeCompare(b.address.toLowerCase())
         );
+        return this.paginate(sortedTemp)
       } else {
-        const temp =  this.employee.filter((e) => e.checked).reverse();
-        return temp
+        const temp =  this.employee.filter((e) => e.checked)
+        return this.paginate(temp)
       }
     },
     // paginate: () => {
@@ -214,7 +222,8 @@ export default {
       }
     },
     pageCount() {
-      return Math.ceil(this.selectedEmp?.length / this.maxPerPage);
+      let selectedEmployees = this.employee.filter((e) => e.checked)
+      return Math.ceil(selectedEmployees.length / this.maxPerPage);
     },
   },
 };

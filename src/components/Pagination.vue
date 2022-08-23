@@ -1,7 +1,7 @@
 <template>
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li style="cursor:pointer" @click="setPage(n)"  :key="i" v-for="(n, i) in pageCount" class="page-item"><a class="page-link">{{ n }}</a></li>
+    <li style="cursor:pointer" @click="setPage(i)"  :key="i" v-for="(n, i) in pageCount" class="page-item"><a class="page-link">{{ n }}</a></li>
     
   </ul>
 </nav>
